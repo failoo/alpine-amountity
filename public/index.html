@@ -4,12 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Vazirmatn">
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+    <script src="../amountity.js"></script>
     <title>alpine-amountity</title>
+    <style>
+        *{
+            font-family: Vazirmatn;
+        }
+    </style>
 </head>
 
 <body>
     <h1>alpine-amountity</h1>
+    <div x-data="{amount : 256000}">
+        <input type="tel" x-amountity="amount">
+        <span x-text="amount"></span>
+    </div>
+
+    <div x-data="">
+        <input type="tel" x-amountity="29856000">
+    </div>
+
+    <div x-data="">
+        <input type="tel" x-amountity="">
+    </div>
 </body>
 
 </html>
