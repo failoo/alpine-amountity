@@ -1,12 +1,14 @@
 document.addEventListener('alpine:init', () => {
     Alpine.directive('amountity', (el, { value, modifiers, expression }, { Alpine, effect, cleanup, evaluate, evaluateLater }) => {
-        const amountEffect = evaluateLater(expression)
-        effect(()=>{
-                amountEffect((...amount) => {
-                    el.value = (amount || 0).toString().replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '٬')
+        if(expression){
+            const amountEffect = evaluateLater(expression)
+            effect(()=>{
+                    amountEffect((...amount) => {
+                        el.value = (amount || 0).toString().replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '٬')
+                })
             })
-        })
-        const amount = evaluate(expression)
+        }
+        const amount = expression ? evaluate(expression) : el.value
         el.value = (amount || 0).toString().replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '٬')
         function keyup(e){
             if(e.type == 'paste'){
@@ -20,7 +22,9 @@ document.addEventListener('alpine:init', () => {
                 e.stopPropagation();
             }
             if(el.value == '0'){
-                evaluate(`${expression} = 0`)
+                if(expression){
+                    evaluate(`${expression} = 0`)
+                }
                 return
             }
             const _value = el.value
@@ -39,7 +43,9 @@ document.addEventListener('alpine:init', () => {
                 }
                 value = `${value}${char}`
             })
-            evaluate(`${expression} = ${value|| 0}`)
+            if(expression){
+                evaluate(`${expression} = ${value|| 0}`)
+            }
             let length = value.length
             el.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '٬')
             if(_value != el.value){
@@ -66,6 +72,13 @@ document.addEventListener('alpine:init', () => {
                 el.setSelectionRange(0, 1)
             }
         }
+        function keypress(e){
+            if(!/\d/.test(e.key)){
+                e.preventDefault()
+                return false
+            }
+        }
+        el.addEventListener('keypress', keypress)
         el.addEventListener('keydown', keydown)
         el.addEventListener('keyup', keyup)
         el.addEventListener('paste', keyup)
