@@ -1,4 +1,4 @@
-# alpine-amontity
+# alpine-amountity
 Alpine directive for amounts and numbers seperator with camma
 
 
