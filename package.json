@@ -1,0 +1,29 @@
+{
+  "name": "alpine-amountity",
+  "version": "0.1.0",
+  "description": "Alpine directive for separate digital numbers with comma",
+  "main": "amountity.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build" : "node_modules/.bin/uglifyjs amountity.js -cm -o amountity.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/failoo/alpine-amountity.git"
+  },
+  "keywords": [
+    "alpine-js",
+    "HTML",
+    "JS",
+    "ES6"
+  ],
+  "author": "Hasan Salehi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/failoo/alpine-amountity/issues"
+  },
+  "homepage": "https://github.com/failoo/alpine-amountity#readme",
+  "devDependencies": {
+    "uglify-js": "^3.15.4"
+  }
+}
