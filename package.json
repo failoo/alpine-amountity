@@ -4,7 +4,8 @@
   "description": "Alpine directive for separate digital numbers with comma",
   "main": "amountity.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build" : "node_modules/.bin/uglifyjs amountity.js -cm -o amountity.min.js"
   },
   "repository": {
     "type": "git",
