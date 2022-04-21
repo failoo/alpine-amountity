@@ -1,4 +1,4 @@
-Alpine.directive('amontity', (el, { value, modifiers, expression }, { Alpine, effect, cleanup, evaluate, evaluateLater }) => {
+Alpine.directive('amountity', (el, { value, modifiers, expression }, { Alpine, effect, cleanup, evaluate, evaluateLater }) => {
     const amountEffect = evaluateLater(expression)
     effect(()=>{
             amountEffect((...amount) => {
