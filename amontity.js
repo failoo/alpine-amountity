@@ -1,6 +1,12 @@
 Alpine.directive('amontity', (el, { value, modifiers, expression }, { Alpine, effect, cleanup, evaluate, evaluateLater }) => {
+    const amountEffect = evaluateLater(expression)
+    effect(()=>{
+            amountEffect((...amount) => {
+                el.value = (amount || 0).toString().replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '٬')
+        })
+    })
     const amount = evaluate(expression)
-    el.value = (amount || 0).toString().replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '،')
+    el.value = (amount || 0).toString().replace(/[^\d]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '٬')
     function keyup(e){
         if(e.type == 'paste'){
             const paste  = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('text')
@@ -12,7 +18,10 @@ Alpine.directive('amontity', (el, { value, modifiers, expression }, { Alpine, ef
             e.preventDefault();
             e.stopPropagation();
         }
-        if(el.value == '0') return
+        if(el.value == '0'){
+            evaluate(`${expression} = 0`)
+            return
+        }
         const _value = el.value
         if(!el.value) {
             el.value = '0'
@@ -31,7 +40,7 @@ Alpine.directive('amontity', (el, { value, modifiers, expression }, { Alpine, ef
         })
         evaluate(`${expression} = ${value|| 0}`)
         let length = value.length
-        el.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '،')
+        el.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '٬')
         if(_value != el.value){
             const ov = length%3
             const additionalStart = start <= ov? start : start + Math.floor((start-1) / 3)
@@ -61,4 +70,3 @@ Alpine.directive('amontity', (el, { value, modifiers, expression }, { Alpine, ef
     el.addEventListener('paste', keyup)
     el.addEventListener('focus', focus)
 })
-
