@@ -5,7 +5,7 @@
   "main": "amountity.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "node_modules/.bin/uglifyjs amountity.js -cm -o amountity.min.js"
+    "build" : "node_modules/.bin/uglifyjs amountity.js -cm -o amountity.min.js && cp amountity.min.js public/js"
   },
   "repository": {
     "type": "git",
